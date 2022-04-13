@@ -39,14 +39,19 @@ public class UserController {
 	
 	@PostMapping("/register")
 	public String registerUser(@ModelAttribute User u, Model model) {
-		if (userRepo.findByUsername(u.getUsername()).isEmpty()) {
-			userRepo.save(u);
-			return "index";
-		} else {
+		if (!userRepo.findByUsername(u.getUsername()).isEmpty()) {
 			model.addAttribute("error", "Username is already taken.");
 			return "register";
+		} else if (u.getUsername().length() == 0){
+			model.addAttribute("error", "Username cannot be empty.");
+			return "register";
+		} else if (u.getPassword().length() == 0){
+			model.addAttribute("error", "Password cannot be empty.");
+			return "register";
 		}
-		
+		userRepo.save(u);
+		model.addAttribute("message","Account " + u.getUsername() + " successfully created.");
+		return "index";
 	}
 	
 	@GetMapping("/login")
@@ -62,6 +67,7 @@ public class UserController {
 			Cookie cookie = new Cookie("username", u.getUsername());
 			response.addCookie(cookie);
 			model.addAttribute("cookieUsername", u.getUsername());
+			model.addAttribute("message","Sucessfully logged in.");
 			return "index";
 		} else {
 			model.addAttribute("error", "Username or password was incorrect.");
@@ -76,6 +82,7 @@ public class UserController {
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
 		model.addAttribute("cookieUsername", "Guest");
+		model.addAttribute("message","You have been logged out.");
 		return "index";
 	}
 }

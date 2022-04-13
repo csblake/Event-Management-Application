@@ -19,7 +19,7 @@ public class WebController {
 	    model.addAttribute("cookieUsername", username);
 	}
 	
-	@RequestMapping("/")
+	@RequestMapping({"/", "/index"})
 	public String index(Model model) {
 		return "index";
 	}

@@ -5,6 +5,7 @@
 <title>Event Management</title>
 </head>
 <body>
+<p th:text="${message}"/>
 <div class="user-info">
 <p>Welcome, <span th:text="${cookieUsername}">Guest</span></p>
 <span th:if="${cookieUsername.equals('Guest')}"><a href="/login">Login</a> | <a href="/register">Register</a></span>
