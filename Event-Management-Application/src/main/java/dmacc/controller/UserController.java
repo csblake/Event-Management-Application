@@ -61,6 +61,7 @@ public class UserController {
 		if (!userRepo.findByUsernameAndPassword(u.getUsername(), u.getPassword()).isEmpty()) {
 			Cookie cookie = new Cookie("username", u.getUsername());
 			response.addCookie(cookie);
+			model.addAttribute("cookieUsername", u.getUsername());
 			return "index";
 		} else {
 			model.addAttribute("error", "Username or password was incorrect.");
@@ -71,9 +72,10 @@ public class UserController {
 	
 	@GetMapping("/logout")
 	public String logout(Model model, HttpServletResponse response) {
-		Cookie cookie = new Cookie("username", null);
+		Cookie cookie = new Cookie("username", "Guest");
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
+		model.addAttribute("cookieUsername", "Guest");
 		return "index";
 	}
 }
