@@ -6,9 +6,9 @@
 </head>
 <body>
 <div class="user-info">
-<p>Welcome, Guest</p>
-<a href="/login">Login</a><br>
-<a href="/register">Register</a>
+<p>Welcome, <span th:text="${cookieUsername}">Guest</span></p>
+<span th:if="${cookieUsername.equals('Guest')}"><a href="/login">Login</a> | <a href="/register">Register</a></span>
+<span th:if="${not cookieUsername.equals('Guest')}"><a href="/logout">Log out</a></span>
 </div>
 </body>
 </html>

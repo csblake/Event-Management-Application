@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Register Account</title>
+<title>Login</title>
 </head>
 <body>
-<form th:object="${newUser}" th:action="@{/register}" method=POST>
+<form th:object="${loginUser}" th:action="@{/login}" method=POST>
 Username: <input name="username" size="20"> <br />
 Password: <input type="password" name="password" size="20"><br />
 <p th:text="${error}" style="color:red"/>
-<input name="submit" type="submit" value="Register" />
+<input name="submit" type="submit" value="Log In" />
 </form>
 
 </body>
