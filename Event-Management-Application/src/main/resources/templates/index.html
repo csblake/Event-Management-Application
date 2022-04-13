@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Event Management</title>
+</head>
+<body>
+<p th:text="${message}"/>
+<div class="user-info">
+<p>Welcome, <span th:text="${cookieUser.username}">Guest</span></p>
+<span th:if="${cookieUser.username.equals('Guest')}"><a href="/login">Login</a> | <a href="/register">Register</a></span>
+<span th:if="${not cookieUser.username.equals('Guest')}"><a href="/logout">Log out</a></span>
+</div>
+<br>
+<div class="menu">
+<span th:if="${cookieUser.isAdmin}"><a href="/admin-home">Admin Access</a></span>
+</div>
+
+</body>
+</html>
