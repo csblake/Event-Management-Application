@@ -5,6 +5,8 @@
  */
 package dmacc.controller;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,7 +29,17 @@ public class UserController {
 	
 	@ModelAttribute
 	public void getCookies(@CookieValue(value = "username", defaultValue = "Guest") String username, Model model) {
-	    model.addAttribute("cookieUsername", username);
+		User currentUser = getCurrentUser(username);
+		model.addAttribute("cookieUser", currentUser);
+	}
+	
+	public User getCurrentUser(String username) {
+		List<User> result = userRepo.findByUsername(username);
+		if (result.isEmpty()) {
+			return new User("Guest");
+		} else {
+			return result.get(0);
+		}
 	}
 	
 	@GetMapping("/register")
@@ -49,6 +61,7 @@ public class UserController {
 			model.addAttribute("error", "Password cannot be empty.");
 			return "register";
 		}
+		u.setAdmin(true); //TODO default for testing
 		userRepo.save(u);
 		model.addAttribute("message","Account " + u.getUsername() + " successfully created.");
 		return "index";
@@ -63,10 +76,11 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String login(@ModelAttribute User u, Model model, HttpServletResponse response) {
-		if (!userRepo.findByUsernameAndPassword(u.getUsername(), u.getPassword()).isEmpty()) {
+		List<User> loginUser = userRepo.findByUsernameAndPassword(u.getUsername(), u.getPassword());		
+		if (!loginUser.isEmpty()) {
 			Cookie cookie = new Cookie("username", u.getUsername());
 			response.addCookie(cookie);
-			model.addAttribute("cookieUsername", u.getUsername());
+			model.addAttribute("cookieUser", loginUser.get(0));
 			model.addAttribute("message","Sucessfully logged in.");
 			return "index";
 		} else {
@@ -81,8 +95,10 @@ public class UserController {
 		Cookie cookie = new Cookie("username", "Guest");
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
-		model.addAttribute("cookieUsername", "Guest");
+		model.addAttribute("cookieUser", new User("Guest"));
 		model.addAttribute("message","You have been logged out.");
 		return "index";
 	}
+	
+
 }

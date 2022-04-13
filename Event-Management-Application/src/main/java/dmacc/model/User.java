@@ -27,4 +27,9 @@ public class User {
 	private boolean canAddEvents;
 	private boolean canEditEvents;
 	private boolean isAdmin;
+	
+	
+	public User(String username) {
+		this.username = username;
+	}
 }

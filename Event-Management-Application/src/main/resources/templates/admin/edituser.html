@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit User</title>
+</head>
+<body>
+<form th:object="${userToEdit}" th:action="@{/user-update/{id}(id=${userToEdit.id})}" method=POST>
+Username: <input name="username" size="20" th:field="*{username}"> <br />
+Password: <input name="password" size="20" th:field="*{password}"><br />
+Can add events? <input type="checkbox" name="canAddEvents" th:checked="${userToEdit.canAddEvents}" />
+Can edit events? <input type="checkbox" name="canEditEvents" th:checked="${userToEdit.canEditEvents}" />
+Is an admin? <input type="checkbox" name="admin" th:checked="${userToEdit.isAdmin}" />
+<input name="submit" type="submit" value="submit" />
+</form>
+</body>
+</html>

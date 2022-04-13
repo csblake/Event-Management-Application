@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>User List</title>
+</head>
+<body>
+<p th:text="${message}"/>
+<p th:text="${error}" style="color:red"/>
+<form>
+<table>
+<tr>
+<th>ID</th>
+<th>Username</th>
+<th>Add events?</th>
+<th>Edit events?</th>
+<th>Admin?</th>
+</tr>
+<tr th:each="currentUser : ${users}" >
+<td th:text="${currentUser.id}" />
+ <td th:text="${currentUser.username}" />
+ <td th:text="${currentUser.canAddEvents}" />
+ <td th:text="${currentUser.canEditEvents}" />
+ <td th:text="${currentUser.isAdmin}" />
+ <td><a th:href="@{/user-edit/{id}(id=${currentUser.id})}">Edit</a></td>
+ <td><a th:href="@{/user-delete/{id}(id=${currentUser.id})}">Delete</a></td>
+</tr>
+</table>
+</form>
+<a href="/admin-home">Back to admin home</a>
+</body>
+</html>
