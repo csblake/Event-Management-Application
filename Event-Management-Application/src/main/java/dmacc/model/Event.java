@@ -18,7 +18,47 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Event {
+	// attributes
 	@Id
 	@GeneratedValue
 	private long id;
+	private String eventName;
+	private int maxAttendence;
+	private String description;
+	private String sponsors;
+	private String date;
+	private double pricePerTicket;
+	private String startTime;
+	private String doorsOpenTime;
+	
+	// constructors
+	public Event(String eventName) {
+		super();
+		this.eventName = eventName;
+	}
+	
+	public Event(String eventName, int maxAttendence, String description, String sponsors, String date, double pricePerTicket, String startTime, String doorsOpenTime) {
+		super();
+		this.eventName = eventName;
+		this.maxAttendence = maxAttendence;
+		this.description = description;
+		this.sponsors = sponsors;
+		this.date = date;
+		this.pricePerTicket = pricePerTicket;
+		this.startTime = startTime;
+		this.doorsOpenTime = doorsOpenTime;
+	}
+	
+	public Event(long id, String eventName, int maxAttendence, String description, String sponsors, String date, double pricePerTicket, String startTime, String doorsOpenTime) {
+		super();
+		this.id = id;
+		this.eventName = eventName;
+		this.maxAttendence = maxAttendence;
+		this.description = description;
+		this.sponsors = sponsors;
+		this.date = date;
+		this.pricePerTicket = pricePerTicket;
+		this.startTime = startTime;
+		this.doorsOpenTime = doorsOpenTime;
+	}
 }
