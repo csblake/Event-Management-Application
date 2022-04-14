@@ -32,11 +32,11 @@ public class WebController {
 	}
 	
 	public User getCurrentUser(String username) {
-		List<User> result = userRepo.findByUsername(username);
-		if (result.isEmpty()) {
+		User result = userRepo.findOneByUsername(username);
+		if (result == null) {
 			return new User("Guest");
 		} else {
-			return result.get(0);
+			return result;
 		}
 	}
 	
@@ -65,8 +65,8 @@ public class WebController {
 	
 	@PostMapping("/user-update/{id}")
 	public String updateUser(User u, Model model) {
-		if (!userRepo.findByUsername(u.getUsername()).isEmpty()) { // Checks if username already exists
-			if (userRepo.findByUsername(u.getUsername()).get(0).getId() != u.getId()) {// If that username is not the same id, return an error. Otherwise, it's the edited user
+		if (userRepo.existsByUsername(u.getUsername())) { // Checks if username already exists
+			if (userRepo.findOneByUsername(u.getUsername()).getId() != u.getId()) {// If that username is not the same id, return an error. Otherwise, it's the edited user
 				model.addAttribute("error", "User with that name already exists");
 				return adminViewUsers(model);
 			}

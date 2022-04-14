@@ -14,6 +14,8 @@ import dmacc.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	List<User> findByUsername(String username);
-	List<User> findByUsernameAndPassword(String username, String password);
+	User findOneByUsername(String username);
+	User findOneByUsernameAndPassword(String username, String password);
+	
+	boolean existsByUsername(String username);
 }
