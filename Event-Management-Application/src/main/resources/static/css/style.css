@@ -47,3 +47,10 @@
 		padding-bottom: 20px;
 	}
 	
+	.message-banner	{
+		margin-top:0px;
+		background-color: #5F9EA0;
+		color: white;
+		border: 2px #bbbbbb;
+		text-align: center;
+	}

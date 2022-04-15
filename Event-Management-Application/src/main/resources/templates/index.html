@@ -3,17 +3,22 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Event Management</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<p th:text="${message}"/>
+<p th:text="${message}" class="message-banner"/>
 <div class="user-info">
 <p>Welcome, <span th:text="${cookieUser.username}">Guest</span></p>
-<span th:if="${cookieUser.username.equals('Guest')}"><a href="/login">Login</a> | <a href="/register">Register</a></span>
-<span th:if="${not cookieUser.username.equals('Guest')}"><a href="/logout">Log out</a></span>
+<ul>
+<span th:if="${cookieUser.username.equals('Guest')}"><li><a href="/login">Login</a></li> | <li><a href="/register">Register</a></li></span>
+<span th:if="${not cookieUser.username.equals('Guest')}"><li><a href="/logout">Log out</a></li></span>
+</ul>
 </div>
 <br>
 <div class="menu">
-<span th:if="${cookieUser.isAdmin}"><a href="/admin-home">Admin Access</a></span>
+<ul>
+<span th:if="${cookieUser.isAdmin}"><li><a href="/admin-home">Admin Access</a></li></span>
+</ul>
 </div>
 
 </body>
