@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import dmacc.model.Event;
 import dmacc.model.User;
 import dmacc.repository.EventRepository;
 import dmacc.repository.UserRepository;
@@ -102,5 +103,12 @@ public class WebController {
 		}
 		model.addAttribute("events", eventRepo.findAll());
 		return "all-events";
+	}
+	
+	@GetMapping({"/viewEvent/{id}"})
+	public String viewEventPage(@PathVariable("id") long id, Model model) {
+		Event e = eventRepo.findById(id).orElse(null);
+		model.addAttribute("eventDetails", e);
+		return "event";
 	}
 }
