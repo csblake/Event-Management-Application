@@ -34,11 +34,11 @@ public class UserController {
 	}
 	
 	public User getCurrentUser(String username) {
-		List<User> result = userRepo.findByUsername(username);
-		if (result.isEmpty()) {
+		User result = userRepo.findOneByUsername(username);
+		if (result == null) {
 			return new User("Guest");
 		} else {
-			return result.get(0);
+			return result;
 		}
 	}
 	
@@ -51,7 +51,7 @@ public class UserController {
 	
 	@PostMapping("/register")
 	public String registerUser(@ModelAttribute User u, Model model) {
-		if (!userRepo.findByUsername(u.getUsername()).isEmpty()) {
+		if (userRepo.existsByUsername(u.getUsername())) {
 			model.addAttribute("error", "Username is already taken.");
 			return "register";
 		} else if (u.getUsername().length() == 0){
@@ -76,11 +76,11 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String login(@ModelAttribute User u, Model model, HttpServletResponse response) {
-		List<User> loginUser = userRepo.findByUsernameAndPassword(u.getUsername(), u.getPassword());		
-		if (!loginUser.isEmpty()) {
+		User loginUser = userRepo.findOneByUsernameAndPassword(u.getUsername(), u.getPassword());		
+		if (loginUser != null) {
 			Cookie cookie = new Cookie("username", u.getUsername());
 			response.addCookie(cookie);
-			model.addAttribute("cookieUser", loginUser.get(0));
+			model.addAttribute("cookieUser", loginUser);
 			model.addAttribute("message","Sucessfully logged in.");
 			return "index";
 		} else {
