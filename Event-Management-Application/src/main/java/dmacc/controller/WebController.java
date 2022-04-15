@@ -75,10 +75,6 @@ public class WebController {
 			model.addAttribute("error", "Username cannot be blank");
 			return adminViewUsers(model);
 		}
-		if (u.getPassword().equals("")) {
-			model.addAttribute("error", "Password cannot be blank");
-			return adminViewUsers(model);
-		}
 		userRepo.save(u);
 		model.addAttribute("message", "User successfully edited");
 		return adminViewUsers(model);
