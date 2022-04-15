@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>All Events</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<table>
+<tr th:each="currentEvent : ${events}" >
+<td class="eventEntry">
+<h2 th:text="${currentEvent.eventName}" class="eventName"></h2><br>
+<div class="description">
+<span th:text="${currentEvent.description}"></span>
+</div>
+<br>
+<div class="details">
+<span th:text="${currentEvent.date}"></span> at 
+<span th:text="${currentEvent.startTime}"></span><br>
+Tickets start at: $<span th:text="${currentEvent.pricePerTicket}"></span>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>
