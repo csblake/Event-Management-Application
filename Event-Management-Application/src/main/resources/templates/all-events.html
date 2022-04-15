@@ -9,7 +9,9 @@
 <table>
 <tr th:each="currentEvent : ${events}" >
 <td class="eventEntry">
-<h2 th:text="${currentEvent.eventName}" class="eventName"></h2><br>
+<h2 class="eventName">
+<a th:text="${currentEvent.eventName}" th:href="@{/viewEvent/{id}(id=${currentEvent.id})}"></a>
+</h2><br>
 <div class="description">
 <span th:text="${currentEvent.description}"></span>
 </div>

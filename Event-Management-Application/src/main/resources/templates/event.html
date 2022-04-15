@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${eventDetails.eventName}">Event Details</title>
+</head>
+<body>
+<h1 th:text="*{eventDetails.eventName}"> </h1>
+
+<div class="description">
+<span th:text="${eventDetails.description}"></span>
+</div>
+<br>
+<div class="details">
+<span th:text="${eventDetails.date}"></span> at 
+<span th:text="${eventDetails.startTime}"></span><br>
+Tickets start at: $<span th:text="${eventDetails.pricePerTicket}"></span><br>
+Event capacity: <span th:text="${eventDetails.maxAttendence}"></span><br>
+Doors open at: <span th:text="${eventDetails.doorsOpenTime}"></span>
+</div><br>
+<div class="sponsors">
+<h3>Sponsored by: </h3> <br>
+<p th:text="${eventDetails.sponsors}"></p>
+</div>
+</body>
+</html>
