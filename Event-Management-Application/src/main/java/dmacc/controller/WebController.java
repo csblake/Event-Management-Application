@@ -18,12 +18,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dmacc.model.User;
+import dmacc.repository.EventRepository;
 import dmacc.repository.UserRepository;
 
 @Controller
 public class WebController {
 	@Autowired
 	UserRepository userRepo;
+	
+	@Autowired
+	EventRepository eventRepo;
 
 	@ModelAttribute
 	public void getCookies(@CookieValue(value = "username", defaultValue = "Guest") String username, Model model) {
@@ -91,5 +95,12 @@ public class WebController {
 		return adminViewUsers(model);
 	}
 	
-	
+	@GetMapping({"/viewAll"})
+	public String viewAllEvents(Model model) {
+		if(eventRepo.findAll().isEmpty()) {
+			return "home";
+		}
+		model.addAttribute("events", eventRepo.findAll());
+		return "all-events";
+	}
 }
