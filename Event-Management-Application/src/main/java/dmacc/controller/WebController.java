@@ -94,9 +94,9 @@ public class WebController {
 	
 	@GetMapping({"/viewAll"})
 	public String viewAllEvents(Model model) {
-		if(eventRepo.findAll().isEmpty()) {
-			return "home.html";
-		}
+		//if(eventRepo.findAll().isEmpty()) {
+		//	return "index";
+		//}
 		model.addAttribute("events", eventRepo.findAll());
 		return "all-events";
 	}
