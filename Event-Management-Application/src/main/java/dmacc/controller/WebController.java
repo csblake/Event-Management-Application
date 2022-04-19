@@ -99,6 +99,7 @@ public class WebController {
 			return "home.html";
 		}
 		model.addAttribute("events", eventRepo.findAll(Sort.by(Sort.Direction.ASC, "date")));
+		model.addAttribute("types", eventRepo.findTypes());
 		return "all-events";
 	}
 	
@@ -108,6 +109,7 @@ public class WebController {
 			return "/viewAll";
 		}
 		model.addAttribute("events", eventRepo.findEventByTypeOrderByDateAsc(type));
+		model.addAttribute("types", eventRepo.findTypes());
 		return "all-events";
 	}
 	

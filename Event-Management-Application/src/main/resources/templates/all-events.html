@@ -24,5 +24,8 @@ Tickets start at: $<span th:text="${currentEvent.pricePerTicket}"></span>
 </td>
 </tr>
 </table>
+<div th:each="currentType : ${types}">
+<span th:text="${currentType}"></span> <br>
+</div>
 </body>
 </html>
