@@ -8,6 +8,7 @@ package dmacc.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -97,7 +98,7 @@ public class WebController {
 		if(eventRepo.findAll().isEmpty()) {
 			return "home.html";
 		}
-		model.addAttribute("events", eventRepo.findAll());
+		model.addAttribute("events", eventRepo.findAll(Sort.by(Sort.Direction.ASC, "date")));
 		return "all-events";
 	}
 	
