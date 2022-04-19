@@ -102,6 +102,15 @@ public class WebController {
 		return "all-events";
 	}
 	
+	@GetMapping({"/viewAll/{type}"})
+	public String viewAllEventsByType(@PathVariable("type") String type, Model model) {
+		if(eventRepo.findAll().isEmpty()) {
+			return "/viewAll";
+		}
+		model.addAttribute("events", eventRepo.findEventByTypeOrderByDateAsc(type));
+		return "all-events";
+	}
+	
 	@GetMapping({"/viewEvent/{id}"})
 	public String viewEventPage(@PathVariable("id") long id, Model model) {
 		Event e = eventRepo.findById(id).orElse(null);
