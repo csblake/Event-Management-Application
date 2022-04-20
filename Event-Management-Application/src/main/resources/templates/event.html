@@ -22,5 +22,14 @@ Doors open at: <span th:text="${eventDetails.doorsOpenTime}"></span>
 <h3>Sponsored by: </h3> <br>
 <p th:text="${eventDetails.sponsors}"></p>
 </div>
+<div class="registration">
+<span th:if="${not cookieUser.attendingEvents.contains(eventDetails.id)}">
+<a th:href="@{/registerEvent/{id} (id=${eventDetails.id})}">Register for event</a><br>
+</span>
+<span th:if="${cookieUser.attendingEvents.contains(eventDetails.id)}">
+<a th:href="@{/unregisterEvent/{id} (id=${eventDetails.id})}">Cancel registration</a><br>
+</span>
+</div>
+<a href="/index">Back to home</a>
 </body>
 </html>
