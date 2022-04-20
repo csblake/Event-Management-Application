@@ -108,6 +108,11 @@ public class WebController {
 		if(eventRepo.findAll().isEmpty()) {
 			return "/viewAll";
 		}
+		
+		if (type.equals("All Events")) {
+			return viewAllEvents(model);
+		}
+		
 		model.addAttribute("events", eventRepo.findEventByTypeOrderByDateAsc(type));
 		model.addAttribute("types", eventRepo.findTypes());
 		return "all-events";

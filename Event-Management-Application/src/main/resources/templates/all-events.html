@@ -6,6 +6,13 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<select name="filter" id="filter" onchange="location = '/viewAll/' + this.value;">
+	<option disabled selected></option>
+	<option>All Events</option>
+    <option th:each="currentType : ${types}" th:value="${currentType}" th:text="${currentType}">
+    </option>
+</select>
+<br>
 <table>
 <tr th:each="currentEvent : ${events}" >
 <td class="eventEntry">
@@ -24,8 +31,6 @@ Tickets start at: $<span th:text="${currentEvent.pricePerTicket}"></span>
 </td>
 </tr>
 </table>
-<div th:each="currentType : ${types}">
-<span th:text="${currentType}"></span> <br>
-</div>
+
 </body>
 </html>
