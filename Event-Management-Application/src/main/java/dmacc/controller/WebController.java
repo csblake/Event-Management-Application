@@ -71,6 +71,7 @@ public class WebController {
 
 	@PostMapping("/user-update/{id}")
 	public String updateUser(User u, Model model) {
+		User oldUser = userRepo.getById(u.getId());
 		if (userRepo.existsByUsername(u.getUsername())) { // Checks if username already exists
 			if (userRepo.findOneByUsername(u.getUsername()).getId() != u.getId()) {// If that username is not the same id, return an error. Otherwise, it's the edited user
 				model.addAttribute("error", "User with that name already exists");
@@ -81,6 +82,7 @@ public class WebController {
 			model.addAttribute("error", "Username cannot be blank");
 			return adminViewUsers(model);
 		}
+		u.setAttendingEvents(oldUser.getAttendingEvents());
 		userRepo.save(u);
 		model.addAttribute("message", "User successfully edited");
 		return adminViewUsers(model);
