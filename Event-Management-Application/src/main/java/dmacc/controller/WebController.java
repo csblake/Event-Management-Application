@@ -96,8 +96,9 @@ public class WebController {
 	@GetMapping({"/viewAll"})
 	public String viewAllEvents(Model model) {
 		if(eventRepo.findAll().isEmpty()) {
-			return "home.html";
+			return addNewEvent(model);
 		}
+		
 		model.addAttribute("events", eventRepo.findAll(Sort.by(Sort.Direction.ASC, "date")));
 		model.addAttribute("types", eventRepo.findTypes());
 		return "all-events";
@@ -123,5 +124,24 @@ public class WebController {
 		Event e = eventRepo.findById(id).orElse(null);
 		model.addAttribute("eventDetails", e);
 		return "event";
+	}
+	
+	@GetMapping("/inputEvent")
+	public String addNewEvent(Model model) {
+		Event e = new Event();
+		model.addAttribute("newEvent", e);
+		return "add-event";
+	}
+	
+	@PostMapping("/inputEvent")
+	public String addEvent(@ModelAttribute Event e, Model m) {
+		eventRepo.save(e);
+		return viewAllEvents(m);
+	}
+	
+	@PostMapping("/update/{id}")
+	public String revisePlayer(Event e, Model model) {
+		eventRepo.save(e);
+		return viewAllEvents(model);
 	}
 }
