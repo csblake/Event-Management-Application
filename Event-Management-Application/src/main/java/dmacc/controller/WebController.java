@@ -8,6 +8,7 @@ package dmacc.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -26,7 +27,7 @@ import dmacc.repository.UserRepository;
 public class WebController {
 	@Autowired
 	UserRepository userRepo;
-	
+
 	@Autowired
 	EventRepository eventRepo;
 
@@ -35,7 +36,7 @@ public class WebController {
 		User currentUser = getCurrentUser(username);
 		model.addAttribute("cookieUser", currentUser);
 	}
-	
+
 	public User getCurrentUser(String username) {
 		User result = userRepo.findOneByUsername(username);
 		if (result == null) {
@@ -44,30 +45,30 @@ public class WebController {
 			return result;
 		}
 	}
-	
+
 	@RequestMapping({"/", "/index"})
 	public String index(Model model) {
 		return "index";
 	}
-	
+
 	@GetMapping("/admin-home")
 	public String adminHome(Model model) {
 		return "/admin/home";
 	}
-	
+
 	@GetMapping("/admin-viewUsers")
 	public String adminViewUsers(Model model) {
 		model.addAttribute("users", userRepo.findAll());
 		return "/admin/userlist";
 	}
-	
+
 	@GetMapping("/user-edit/{id}")
 	public String editUser(@PathVariable("id") long id, Model model) {
 		User u = userRepo.findById(id).orElse(null);
 		model.addAttribute("userToEdit", u);
 		return "/admin/edituser";
 	}
-	
+
 	@PostMapping("/user-update/{id}")
 	public String updateUser(User u, Model model) {
 		if (userRepo.existsByUsername(u.getUsername())) { // Checks if username already exists
@@ -75,7 +76,7 @@ public class WebController {
 				model.addAttribute("error", "User with that name already exists");
 				return adminViewUsers(model);
 			}
-		} 
+		}
 		if (u.getUsername().equals("")){
 			model.addAttribute("error", "Username cannot be blank");
 			return adminViewUsers(model);
@@ -84,30 +85,43 @@ public class WebController {
 		model.addAttribute("message", "User successfully edited");
 		return adminViewUsers(model);
 	}
-	
+
 	@GetMapping("/user-delete/{id}")
 	public String deleteUser(@PathVariable("id") long id, Model model) {
 		User u = userRepo.findById(id).orElse(null);
 		userRepo.delete(u);
 		return adminViewUsers(model);
 	}
-	
+
 	@GetMapping({"/viewAll"})
 	public String viewAllEvents(Model model) {
-		//if(eventRepo.findAll().isEmpty()) {
-		//	return "index";
-		//}
-		model.addAttribute("events", eventRepo.findAll());
+		model.addAttribute("events", eventRepo.findAll(Sort.by(Sort.Direction.ASC, "date")));
+		model.addAttribute("types", eventRepo.findTypes());
 		return "all-events";
 	}
-	
+
+	@GetMapping({"/viewAll/{type}"})
+	public String viewAllEventsByType(@PathVariable("type") String type, Model model) {
+		if(eventRepo.findAll().isEmpty()) {
+			return "/viewAll";
+		}
+
+		if (type.equals("All Events")) {
+			return viewAllEvents(model);
+		}
+
+		model.addAttribute("events", eventRepo.findEventByTypeOrderByDateAsc(type));
+		model.addAttribute("types", eventRepo.findTypes());
+		return "all-events";
+	}
+
 	@GetMapping({"/viewEvent/{id}"})
 	public String viewEventPage(@PathVariable("id") long id, Model model) {
 		Event e = eventRepo.findById(id).orElse(null);
 		model.addAttribute("eventDetails", e);
 		return "event";
 	}
-	
+
 	@GetMapping({"/createEvent"})
 	public String createEvent(Model model) {
 		//TODO Temporary, need to add event creation functionality
@@ -117,7 +131,7 @@ public class WebController {
 		eventRepo.save(e);
 		return "all-events";
 	}
-	
+
 	@GetMapping({"/registerEvent/{id}"})
 	public String registerForEvent(@CookieValue(value = "username", defaultValue = "Guest") String username, @PathVariable("id") long id, Model model) {
 		User currentUser = getCurrentUser(username);
@@ -125,7 +139,7 @@ public class WebController {
 		userRepo.save(currentUser);
 		return viewAllEvents(model);
 	}
-	
+
 	@GetMapping({"/unregisterEvent/{id}"})
 	public String unregisterForEvent(@CookieValue(value = "username", defaultValue = "Guest") String username, @PathVariable("id") long id, Model model) {
 		User currentUser = getCurrentUser(username);

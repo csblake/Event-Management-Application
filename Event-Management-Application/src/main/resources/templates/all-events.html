@@ -6,7 +6,13 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<span th:if="${eventDetails == null}">No events are currently planned, check back soon.</span>
+<select name="filter" id="filter" onchange="location = '/viewAll/' + this.value;">
+	<option disabled selected></option>
+	<option>All Events</option>
+    <option th:each="currentType : ${types}" th:value="${currentType}" th:text="${currentType}">
+    </option>
+</select>
+<br>
 <table>
 <tr th:each="currentEvent : ${events}" >
 <td class="eventEntry">
@@ -18,7 +24,7 @@
 </div>
 <br>
 <div class="details">
-<span th:text="${currentEvent.date}"></span> at 
+<span th:text="${currentEvent.date}"></span> at
 <span th:text="${currentEvent.startTime}"></span><br>
 Tickets start at: $<span th:text="${currentEvent.pricePerTicket}"></span>
 </div>
