@@ -100,6 +100,22 @@ public class WebController {
 		}
 		
 		model.addAttribute("events", eventRepo.findAll(Sort.by(Sort.Direction.ASC, "date")));
+		model.addAttribute("types", eventRepo.findTypes());
+		return "all-events";
+	}
+	
+	@GetMapping({"/viewAll/{type}"})
+	public String viewAllEventsByType(@PathVariable("type") String type, Model model) {
+		if(eventRepo.findAll().isEmpty()) {
+			return "/viewAll";
+		}
+		
+		if (type.equals("All Events")) {
+			return viewAllEvents(model);
+		}
+		
+		model.addAttribute("events", eventRepo.findEventByTypeOrderByDateAsc(type));
+		model.addAttribute("types", eventRepo.findTypes());
 		return "all-events";
 	}
 	
