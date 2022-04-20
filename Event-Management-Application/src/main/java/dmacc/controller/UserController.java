@@ -62,6 +62,8 @@ public class UserController {
 			return "register";
 		}
 		u.setAdmin(true); //TODO default for testing
+		u.setCanAddEvents(true); //TODO default for testing
+		u.attendEvent(0l); // Adds ID of 0 to events being attended to prevent the arraylist from being null
 		userRepo.save(u);
 		model.addAttribute("message","Account " + u.getUsername() + " successfully created.");
 		return "index";
