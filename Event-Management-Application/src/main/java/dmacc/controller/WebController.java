@@ -124,16 +124,6 @@ public class WebController {
 		return "event";
 	}
 
-	@GetMapping({"/createEvent"})
-	public String createEvent(Model model) {
-		//TODO Temporary, need to add event creation functionality
-		Event e = new Event();
-		e.setEventName("Grand Opening");
-		e.setDate("01/01/01");
-		eventRepo.save(e);
-		return "all-events";
-	}
-
 	@GetMapping({"/registerEvent/{id}"})
 	public String registerForEvent(@CookieValue(value = "username", defaultValue = "Guest") String username, @PathVariable("id") long id, Model model) {
 		User currentUser = getCurrentUser(username);
@@ -147,6 +137,25 @@ public class WebController {
 		User currentUser = getCurrentUser(username);
 		currentUser.unattendEvent(id);
 		userRepo.save(currentUser);
+		return viewAllEvents(model);
+	}
+
+	@GetMapping("/inputEvent")
+	public String addNewEvent(Model model) {
+		Event e = new Event();
+		model.addAttribute("newEvent", e);
+		return "add-event";
+	}
+
+	@PostMapping("/inputEvent")
+	public String addEvent(@ModelAttribute Event e, Model m) {
+		eventRepo.save(e);
+		return viewAllEvents(m);
+	}
+
+	@PostMapping("/update/{id}")
+	public String revisePlayer(Event e, Model model) {
+		eventRepo.save(e);
 		return viewAllEvents(model);
 	}
 }
