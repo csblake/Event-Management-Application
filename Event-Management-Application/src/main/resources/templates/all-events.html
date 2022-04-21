@@ -6,9 +6,8 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<p>Filter by Type</p>
 <select name="filter" id="filter" onchange="location = '/viewAll/' + this.value;">
-	<option disabled selected></option>
+	<option disabled selected>Filter by Type</option>
 	<option>All Events</option>
     <option th:each="currentType : ${types}" th:value="${currentType}" th:text="${currentType}">
     </option>
