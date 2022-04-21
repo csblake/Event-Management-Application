@@ -155,14 +155,18 @@ public class WebController {
 
 	@PostMapping("/update/{id}")
 	public String reviseEvent(Event e, Model model) {
+		if (eventRepo.existsById(e.getId())) { 
+			e.setAttendeeInfo(eventRepo.getById(e.getId()).getAttendeeInfo()); // Keeps the attendeeInfo, as it's not in the update form
+		}
 		eventRepo.save(e);
 		return viewAllEvents(model);
 	}
 	
 	@GetMapping({"/editEvent/{id}"})
 	public String editEvent(@PathVariable("id") long id, Model model) {
-
-		return "edit-event";
+		Event e = eventRepo.getById(id);
+		model.addAttribute("newEvent", e);
+		return "add-event";
 	}
 	
 	@GetMapping({"/editEventAttendeeInfo/{id}"})
