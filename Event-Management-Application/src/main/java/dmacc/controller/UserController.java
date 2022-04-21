@@ -61,8 +61,11 @@ public class UserController {
 			model.addAttribute("error", "Password cannot be empty.");
 			return "register";
 		}
-		u.setAdmin(true); //TODO default for testing
-		u.setCanAddEvents(true); //TODO default for testing
+		if (userRepo.findAll().isEmpty()) { // If no user accounts exist, the first one will be made an admin
+			u.setAdmin(true);
+			u.setCanAddEvents(true);
+			u.setCanEditEvents(true);
+		}
 		u.attendEvent(0l); // Adds ID of 0 to events being attended to prevent the arraylist from being null
 		userRepo.save(u);
 		model.addAttribute("message","Account " + u.getUsername() + " successfully created.");

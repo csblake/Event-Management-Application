@@ -154,8 +154,33 @@ public class WebController {
 	}
 
 	@PostMapping("/update/{id}")
-	public String revisePlayer(Event e, Model model) {
+	public String reviseEvent(Event e, Model model) {
+		if (eventRepo.existsById(e.getId())) { 
+			e.setAttendeeInfo(eventRepo.getById(e.getId()).getAttendeeInfo()); // Keeps the attendeeInfo, as it's not in the update form
+		}
 		eventRepo.save(e);
+		return viewAllEvents(model);
+	}
+	
+	@GetMapping({"/editEvent/{id}"})
+	public String editEvent(@PathVariable("id") long id, Model model) {
+		Event e = eventRepo.getById(id);
+		model.addAttribute("newEvent", e);
+		return "add-event";
+	}
+	
+	@GetMapping({"/editEventAttendeeInfo/{id}"})
+	public String editEventAttendeeInfo(@PathVariable("id") long id, Model model) {
+		Event e = eventRepo.getById(id);
+		model.addAttribute("updateEvent", e);
+		return "edit-event-attendee-info";
+	}
+	
+	@PostMapping("/updateEventAttendeeInfo/{id}")
+	public String updateEventAttendeeInfo(Event e, Model model) {
+		Event eToUpdate = eventRepo.getById(e.getId());
+		eToUpdate.setAttendeeInfo(e.getAttendeeInfo());
+		eventRepo.save(eToUpdate);
 		return viewAllEvents(model);
 	}
 }

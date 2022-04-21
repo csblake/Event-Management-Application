@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit Event Attendee Info</title>
+</head>
+<body>
+	<form th:object="${updateEvent}" th:action="@{/updateEventAttendeeInfo/{id}(id=${updateEvent.id})}" method=POST>
+	Attendee info:<br> <textarea name="attendeeinfo" rows="10" cols="30" th:field="*{attendeeInfo}"></textarea><br>
+	<input name="submit" type="submit" value="Submit"/>
+	</form>
+	<a href="/viewAll">Back to events</a>
+
+</body>
+</html>

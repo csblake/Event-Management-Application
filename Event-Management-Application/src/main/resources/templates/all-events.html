@@ -6,9 +6,8 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<p>Filter by Type</p>
 <select name="filter" id="filter" onchange="location = '/viewAll/' + this.value;">
-	<option disabled selected></option>
+	<option disabled selected>Filter by Type</option>
 	<option>All Events</option>
     <option th:each="currentType : ${types}" th:value="${currentType}" th:text="${currentType}">
     </option>
@@ -33,6 +32,6 @@ Tickets start at: $<span th:text="${currentEvent.pricePerTicket}"></span>
 </tr>
 </table>
 <span th:if="${cookieUser.canAddEvents}"><li><a href="/inputEvent">Create an event</a></li></br></span>
-<a href="index">Back to home</a>
+<a href="/index">Back to home</a>
 </body>
 </html>
