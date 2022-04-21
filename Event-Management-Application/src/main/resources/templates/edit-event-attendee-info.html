@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit Event Attendee Info</title>
+</head>
+<body>
+	<form th:object="${updateEvent}" th:action="@{/updateEventAttendeeInfo/{id}(id=${updateEvent.id})}" method=POST>
+	Attendee info: <textarea name="attendeeinfo" rows="20" cols="20" th:field="*{attendeeInfo}"></textarea><br>
+	<input name="submit" type="submit" value="submit"/>
+	</form>
+	<a href="viewAll">View all Events</a>
+
+</body>
+</html>

@@ -31,6 +31,7 @@ public class Event {
 	private String startTime;
 	private String doorsOpenTime;
 	private String type;
+	private String attendeeInfo;
 	
 	// constructors
 	public Event(String eventName) {

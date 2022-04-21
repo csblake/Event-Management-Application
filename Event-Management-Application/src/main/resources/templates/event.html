@@ -22,6 +22,12 @@ Doors open at: <span th:text="${eventDetails.doorsOpenTime}"></span>
 <h3>Sponsored by: </h3> <br>
 <p th:text="${eventDetails.sponsors}"></p>
 </div>
+<span th:if="${not (eventDetails.attendeeInfo == null)}"><div class="attendee-info">
+<span th:if="${cookieUser.attendingEvents.contains(eventDetails.id)}">
+<h3>Information for attendees:</h3>
+<p th:text="${eventDetails.attendeeInfo}"></p>
+</span>
+</div></span>
 <div class="registration">
 <span th:if="${not cookieUser.attendingEvents.contains(eventDetails.id)}">
 <a th:href="@{/registerEvent/{id} (id=${eventDetails.id})}">Register for event</a><br>
@@ -30,6 +36,11 @@ Doors open at: <span th:text="${eventDetails.doorsOpenTime}"></span>
 <a th:href="@{/unregisterEvent/{id} (id=${eventDetails.id})}">Cancel registration</a><br>
 </span>
 </div>
-<a href="/index">Back to home</a>
+<ul>
+<span th:if="${cookieUser.canEditEvents}"><li><a th:href="@{/editEvent/{id} (id=${eventDetails.id})}">Edit event details</a></li></span>
+<span th:if="${cookieUser.canEditEvents}"><li><a th:href="@{/editEventAttendeeInfo/{id} (id=${eventDetails.id})}">Add information for attendees</a></li></span>
+<li><a href="/viewAll">Back to event list</a></li>
+<li><a href="/index">Back to home</a></li>
+</ul>
 </body>
 </html>
