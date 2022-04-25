@@ -23,6 +23,8 @@ Doors open at: <span th:text="${eventDetails.doorsOpenTime}"></span>
 <h3>Sponsored by: </h3> <br>
 <p th:text="${eventDetails.sponsors}"></p>
 </div>
+<h3>Cost to Sponsor</h3>
+	<p th:text="${eventDetails.costToSponsor}"></p>
 <span th:if="${not (eventDetails.attendeeInfo == null)}"><div class="attendee-info">
 <span th:if="${cookieUser.attendingEvents.contains(eventDetails.id)}">
 <h3>Information for attendees:</h3>

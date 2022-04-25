@@ -32,6 +32,7 @@ public class Event {
 	private String doorsOpenTime;
 	private String type;
 	private String attendeeInfo;
+	private double costToSponsor;
 	
 	// constructors
 	public Event(String eventName) {
@@ -52,7 +53,7 @@ public class Event {
 		this.type = type;
 	}
 	
-	public Event(long id, String eventName, int maxAttendence, String description, String sponsors, String date, double pricePerTicket, String startTime, String doorsOpenTime, String type) {
+	public Event(long id, String eventName, int maxAttendence, String description, String sponsors, String date, double pricePerTicket, String startTime, String doorsOpenTime, String type, double costToSponsor) {
 		super();
 		this.id = id;
 		this.eventName = eventName;
@@ -64,5 +65,6 @@ public class Event {
 		this.startTime = startTime;
 		this.doorsOpenTime = doorsOpenTime;
 		this.type = type;
+		this.costToSponsor = costToSponsor;
 	}
 }
