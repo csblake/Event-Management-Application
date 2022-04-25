@@ -3,7 +3,21 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>All Events</title>
-<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<script type="text/javascript">
+
+	function deleteConfirmation() {
+		if(confirm("Are you sure you want to delete this item?")){
+			console.log("The item has been deleted");
+		} else {
+			console.log("The item has not been deleted! Close one!");
+			return false;
+		}
+	}
+
+	</script>
+
 </head>
 <body>
 <select name="filter" id="filter" onchange="location = '/viewAll/' + this.value;">
@@ -28,15 +42,14 @@
 <span th:text="${currentEvent.startTime}"></span><br>
 Tickets start at: $<span th:text="${currentEvent.pricePerTicket}"></span>
 </div>
-<td><a th:href="@{/edit/{id}(id=${currentEvent.id})}">Edit</a></td>
+
+	<td><a th:href="@{/edit/{id}(id=${currentEvent.id})}">Edit</a></td>
+	<td><a th:href="@{/delete/{id}(id=${currentEvent.id})}" onclick="return deleteConfirmation();">Delete</a></td>
+
 </td>
 </tr>
 </table>
-<<<<<<< Updated upstream
-<span th:if="${cookieUser.canAddEvents}"><li><a href="/inputEvent">Create an event</a></li></br></span>
-=======
-<span th:if="${cookieUser.canAddEvents}"><a href="/inputEvent">Create an event</a></br></span>
->>>>>>> Stashed changes
+<span th:if="${cookieUser.canAddEvents}"><a href="/inputEvent">Create an event</a></span><br />
 <a href="/index">Back to home</a>
 </body>
 </html>

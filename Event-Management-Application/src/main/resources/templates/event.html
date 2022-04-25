@@ -6,7 +6,6 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<<<<<<< Updated upstream
 <h1 th:text="*{eventDetails.eventName}"> </h1>
 
 <div class="description">
@@ -44,33 +43,6 @@ Doors open at: <span th:text="${eventDetails.doorsOpenTime}"></span>
 <li><a href="/viewAll">Back to event list</a></li>
 <li><a href="/index">Back to home</a></li>
 </ul>
-=======
-	<h1 th:text="*{eventDetails.eventName}"> </h1>
-	
-	<div class="description">
-	<span th:text="${eventDetails.description}"></span>
-	</div>
-	<br>
-	<div class="details">
-	<span th:text="${eventDetails.date}"></span> at 
-	<span th:text="${eventDetails.startTime}"></span><br>
-	Tickets start at: $<span th:text="${eventDetails.pricePerTicket}"></span><br>
-	Event capacity: <span th:text="${eventDetails.maxAttendence}"></span><br>
-	Doors open at: <span th:text="${eventDetails.doorsOpenTime}"></span>
-	</div><br>
-	<div class="sponsors">
-	<h3>Sponsored by: </h3> <br>
-	<p th:text="${eventDetails.sponsors}"></p>
-	</div>
-	<div class="registration">
-	<span th:if="${not cookieUser.attendingEvents.contains(eventDetails.id)}">
-	<a th:href="@{/registerEvent/{id} (id=${eventDetails.id})}">Register for event</a><br>
-	</span>
-	<span th:if="${cookieUser.attendingEvents.contains(eventDetails.id)}">
-	<a th:href="@{/unregisterEvent/{id} (id=${eventDetails.id})}">Cancel registration</a><br>
-	</span>
-	</div>
-	<a href="/index">Back to home</a>
->>>>>>> Stashed changes
+
 </body>
 </html>

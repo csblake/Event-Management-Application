@@ -168,4 +168,11 @@ public class WebController {
 		model.addAttribute("newEvent", e);
 		return "add-event";
 	}
+	
+	@GetMapping("/delete/{id}")
+	public String deletePlayer(@PathVariable("id") long id, Model model) {
+		Event e = eventRepo.findById(id).orElse(null);
+		eventRepo.delete(e);
+		return viewAllEvents(model); 
+	}
 }
