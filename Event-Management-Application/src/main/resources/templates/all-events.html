@@ -3,7 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>All Events</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <select name="filter" id="filter" onchange="location = '/viewAll/' + this.value;">
@@ -28,10 +28,15 @@
 <span th:text="${currentEvent.startTime}"></span><br>
 Tickets start at: $<span th:text="${currentEvent.pricePerTicket}"></span>
 </div>
+<td><a th:href="@{/edit/{id}(id=${currentEvent.id})}">Edit</a></td>
 </td>
 </tr>
 </table>
+<<<<<<< Updated upstream
 <span th:if="${cookieUser.canAddEvents}"><li><a href="/inputEvent">Create an event</a></li></br></span>
+=======
+<span th:if="${cookieUser.canAddEvents}"><a href="/inputEvent">Create an event</a></br></span>
+>>>>>>> Stashed changes
 <a href="/index">Back to home</a>
 </body>
 </html>

@@ -162,6 +162,7 @@ public class WebController {
 		return viewAllEvents(model);
 	}
 	
+<<<<<<< Updated upstream
 	@GetMapping({"/editEvent/{id}"})
 	public String editEvent(@PathVariable("id") long id, Model model) {
 		Event e = eventRepo.getById(id);
@@ -183,4 +184,12 @@ public class WebController {
 		eventRepo.save(eToUpdate);
 		return viewAllEvents(model);
 	}
+=======
+	@GetMapping("/edit/{id}")
+	public String showUpdateEvent(@PathVariable("id") long id, Model model) {
+		Event e = eventRepo.findById(id).orElse(null);
+		model.addAttribute("newEvent", e);
+		return "add-event";
+	}
+>>>>>>> Stashed changes
 }

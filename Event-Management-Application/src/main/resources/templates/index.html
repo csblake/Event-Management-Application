@@ -10,15 +10,15 @@
 <div class="user-info">
 <p>Welcome, <span th:text="${cookieUser.username}">Guest</span></p>
 <ul>
-<span th:if="${cookieUser.username.equals('Guest')}"><li><a href="/login">Login</a></li> | <li><a href="/register">Register</a></li></span>
-<span th:if="${not cookieUser.username.equals('Guest')}"><li><a href="/logout">Log out</a></li></span>
+	<span th:if="${cookieUser.username.equals('Guest')}"><li><a href="/login">Login</a></li> | <li><a href="/register">Register</a></li></span>
+	<span th:if="${not cookieUser.username.equals('Guest')}"><li><a href="/logout">Log out</a></li></span>
 </ul>
 </div>
 <br>
 <div class="menu">
 <ul>
-<li><a href="/viewAll">View Events</a></li>
-<span th:if="${cookieUser.isAdmin}"><li><a href="/admin-home">Admin Access</a></li></span>
+	<li><a href="/viewAll">View Events</a></li>
+	<span th:if="${cookieUser.isAdmin}"><li><a href="/admin-home">Admin Access</a></li></span>
 </ul>
 </div>
 
