@@ -26,7 +26,7 @@ Doors open at: <span th:text="${eventDetails.doorsOpenTime}"></span>
 <span th:if="${not (eventDetails.attendeeInfo == null)}"><div class="attendee-info">
 <span th:if="${cookieUser.attendingEvents.contains(eventDetails.id)}">
 <h3>Information for attendees:</h3>
-<p th:text="${eventDetails.attendeeInfo}"></p>
+	<p th:text="${eventDetails.attendeeInfo}"></p>
 </span>
 </div></span>
 <div class="registration">
@@ -38,7 +38,6 @@ Doors open at: <span th:text="${eventDetails.doorsOpenTime}"></span>
 </span>
 </div>
 <ul>
-<span th:if="${cookieUser.canEditEvents}"><li><a th:href="@{/editEvent/{id} (id=${eventDetails.id})}">Edit event details</a></li></span>
 <span th:if="${cookieUser.canEditEvents}"><li><a th:href="@{/editEventAttendeeInfo/{id} (id=${eventDetails.id})}">Add information for attendees</a></li></span>
 <li><a href="/viewAll">Back to event list</a></li>
 <li><a href="/index">Back to home</a></li>

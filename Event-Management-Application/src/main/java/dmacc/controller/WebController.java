@@ -170,9 +170,24 @@ public class WebController {
 	}
 	
 	@GetMapping("/delete/{id}")
-	public String deletePlayer(@PathVariable("id") long id, Model model) {
+	public String deleteEvent(@PathVariable("id") long id, Model model) {
 		Event e = eventRepo.findById(id).orElse(null);
 		eventRepo.delete(e);
 		return viewAllEvents(model); 
 	}
+	
+	@GetMapping({"/editEventAttendeeInfo/{id}"})
+ 	public String editEventAttendeeInfo(@PathVariable("id") long id, Model model) {
+ 		Event e = eventRepo.getById(id);
+ 		model.addAttribute("updateEvent", e);
+ 		return "edit-event-attendee-info";
+ 	}
+
+ 	@PostMapping("/updateEventAttendeeInfo/{id}")
+ 	public String updateEventAttendeeInfo(Event e, Model model) {
+ 		Event eToUpdate = eventRepo.getById(e.getId());
+ 		eToUpdate.setAttendeeInfo(e.getAttendeeInfo());
+ 		eventRepo.save(eToUpdate);
+ 		return viewAllEvents(model);
+ 	}
 }
