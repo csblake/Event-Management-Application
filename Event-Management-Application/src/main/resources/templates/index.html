@@ -3,12 +3,14 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Event Management</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <p th:text="${message}" class="message-banner"/>
 <div class="user-info">
-<p>Welcome, <span th:text="${cookieUser.username}">Guest</span></p>
+<span th:if="${not cookieUser.username.equals('Guest')}"><p>Welcome, <a href="/userProfile"><span th:text="${cookieUser.username}">Guest</span></a></p></span>
+<span th:if="${cookieUser.username.equals('Guest')}"><p>Welcome, Guest</p></span>
+
 <ul>
 	<span th:if="${cookieUser.username.equals('Guest')}"><li><a href="/login">Login</a></li> | <li><a href="/register">Register</a></li></span>
 	<span th:if="${not cookieUser.username.equals('Guest')}"><li><a href="/logout">Log out</a></li></span>

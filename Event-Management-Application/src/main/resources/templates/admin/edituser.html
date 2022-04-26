@@ -3,7 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Edit User</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<form th:object="${userToEdit}" th:action="@{/user-update/{id}(id=${userToEdit.id})}" method=POST>
