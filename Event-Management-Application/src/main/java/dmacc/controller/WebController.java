@@ -107,7 +107,7 @@ public class WebController {
 	@GetMapping({"/viewAll/{type}"})
 	public String viewAllEventsByType(@PathVariable("type") String type, Model model) {
 		if(eventRepo.findAll().isEmpty()) {
-			return "/viewAll";
+			return "all-events";
 		}
 
 		if (type.equals("All Events")) {
