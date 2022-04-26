@@ -84,6 +84,7 @@ public class WebController {
 			return adminViewUsers(model);
 		}
 		u.setAttendingEvents(oldUser.getAttendingEvents());
+		u.setPassword(oldUser.getPassword());
 		userRepo.save(u);
 		model.addAttribute("message", "User successfully edited");
 		return adminViewUsers(model);
