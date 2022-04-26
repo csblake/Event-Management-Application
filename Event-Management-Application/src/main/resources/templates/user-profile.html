@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>User Profile</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h2>Your Events</h2>
+<table>
+<tr th:each="currentEvent : ${eventsAttending}" >
+<td>
+<a th:text="${currentEvent.eventName}" th:href="@{/viewEvent/{id}(id=${currentEvent.id})}"></a>
+</td>
+<td>
+<span th:text="${currentEvent.date}"></span> at <span th:text="${currentEvent.startTime}"></span>
+</td>
+</tr>
+</table>
+<br>
+<a href="/index">Back to home</a>
+</body>
+</html>

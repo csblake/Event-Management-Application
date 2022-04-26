@@ -5,6 +5,7 @@
  */
 package dmacc.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,4 +191,20 @@ public class WebController {
  		eventRepo.save(eToUpdate);
  		return viewAllEvents(model);
  	}
+ 	
+	@GetMapping("/userProfile")
+	public String showUserProfile(@CookieValue(value = "username", defaultValue = "Guest") String username, Model model) {
+		User currentUser = getCurrentUser(username);
+		ArrayList<Event> userEventsAttending = new ArrayList<Event>();
+		for (int i = 0; i < currentUser.getAttendingEvents().size(); i++) {
+			if (currentUser.getAttendingEvents().get(i) != 0) {
+				Event e = eventRepo.findById(currentUser.getAttendingEvents().get(i)).orElse(null);
+				if (e != null) {
+					userEventsAttending.add(e);
+				}
+			}
+		}
+		model.addAttribute("eventsAttending", userEventsAttending);
+		return "user-profile";
+	}
 }
