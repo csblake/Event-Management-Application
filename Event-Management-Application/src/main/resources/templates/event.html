@@ -13,11 +13,11 @@
 </div>
 <br>
 <div class="details">
-<span th:text="${eventDetails.date}"></span> at 
-<span th:text="${eventDetails.startTime}"></span><br>
+<span th:text="${#dates.format(eventDetails.date, 'LLLL dd, yyyy')}"></span> at 
+<span th:text="${#dates.format(eventDetails.startTime, 'hh:mm aa')}"></span><br>
 Tickets start at: $<span th:text="${eventDetails.pricePerTicket}"></span><br>
 Event capacity: <span th:text="${eventDetails.maxAttendence}"></span><br>
-Doors open at: <span th:text="${eventDetails.doorsOpenTime}"></span>
+Doors open at: <span th:text="${#dates.format(eventDetails.doorsOpenTime, 'hh:mm aa')}"></span>
 </div><br>
 <div class="sponsors">
 <h3>Sponsored by: </h3> <br>

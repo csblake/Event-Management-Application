@@ -38,8 +38,8 @@
 </div>
 <br>
 <div class="details">
-<span th:text="${currentEvent.date}"></span> at
-<span th:text="${currentEvent.startTime}"></span><br>
+<span th:text="${#dates.format(currentEvent.date, 'MM/dd/YY')}"></span> at
+<span th:text="${#dates.format(currentEvent.startTime, 'hh:mm aa')}"></span><br>
 Tickets start at: $<span th:text="${currentEvent.pricePerTicket}"></span>
 </div>
 
