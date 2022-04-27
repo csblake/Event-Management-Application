@@ -5,8 +5,11 @@
  */
 package dmacc.model;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,10 +29,13 @@ public class Event {
 	private int maxAttendence;
 	private String description;
 	private String sponsors;
-	private String date;
+	@Basic
+	private Date date;
 	private double pricePerTicket;
-	private String startTime;
-	private String doorsOpenTime;
+	@Basic
+	private Time startTime;
+	@Basic
+	private Time doorsOpenTime;
 	private String type;
 	private String attendeeInfo;
 	private double costToSponsor;
@@ -39,21 +45,24 @@ public class Event {
 		super();
 		this.eventName = eventName;
 	}
-	
-	public Event(String eventName, int maxAttendence, String description, String sponsors, String date, double pricePerTicket, String startTime, String doorsOpenTime, String type) {
-		super();
-		this.eventName = eventName;
-		this.maxAttendence = maxAttendence;
-		this.description = description;
-		this.sponsors = sponsors;
-		this.date = date;
-		this.pricePerTicket = pricePerTicket;
-		this.startTime = startTime;
-		this.doorsOpenTime = doorsOpenTime;
-		this.type = type;
-	}
-	
-	public Event(long id, String eventName, int maxAttendence, String description, String sponsors, String date, double pricePerTicket, String startTime, String doorsOpenTime, String type, double costToSponsor) {
+
+	/**
+	 * @param id
+	 * @param eventName
+	 * @param maxAttendence
+	 * @param description
+	 * @param sponsors
+	 * @param date
+	 * @param pricePerTicket
+	 * @param startTime
+	 * @param doorsOpenTime
+	 * @param type
+	 * @param attendeeInfo
+	 * @param costToSponsor
+	 */
+	public Event(long id, String eventName, int maxAttendence, String description, String sponsors, Date date,
+			double pricePerTicket, Time startTime, Time doorsOpenTime, String type, String attendeeInfo,
+			double costToSponsor) {
 		super();
 		this.id = id;
 		this.eventName = eventName;
@@ -65,6 +74,39 @@ public class Event {
 		this.startTime = startTime;
 		this.doorsOpenTime = doorsOpenTime;
 		this.type = type;
+		this.attendeeInfo = attendeeInfo;
 		this.costToSponsor = costToSponsor;
 	}
+
+	/**
+	 * @param eventName
+	 * @param maxAttendence
+	 * @param description
+	 * @param sponsors
+	 * @param date
+	 * @param pricePerTicket
+	 * @param startTime
+	 * @param doorsOpenTime
+	 * @param type
+	 * @param attendeeInfo
+	 * @param costToSponsor
+	 */
+	public Event(String eventName, int maxAttendence, String description, String sponsors, Date date,
+			double pricePerTicket, Time startTime, Time doorsOpenTime, String type, String attendeeInfo,
+			double costToSponsor) {
+		super();
+		this.eventName = eventName;
+		this.maxAttendence = maxAttendence;
+		this.description = description;
+		this.sponsors = sponsors;
+		this.date = date;
+		this.pricePerTicket = pricePerTicket;
+		this.startTime = startTime;
+		this.doorsOpenTime = doorsOpenTime;
+		this.type = type;
+		this.attendeeInfo = attendeeInfo;
+		this.costToSponsor = costToSponsor;
+	}
+	
+	
 }
