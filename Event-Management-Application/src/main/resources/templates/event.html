@@ -31,14 +31,14 @@ Doors open at: <span th:text="${#dates.format(eventDetails.doorsOpenTime, 'hh:mm
 	<p th:text="${eventDetails.attendeeInfo}"></p>
 </span>
 </div></span>
-<div class="registration">
+<span th:if="${not cookieUser.username.equals('Guest')}"><div class="registration">
 <span th:if="${not cookieUser.attendingEvents.contains(eventDetails.id)}">
 <a th:href="@{/registerEvent/{id} (id=${eventDetails.id})}">Register for event</a><br>
 </span>
 <span th:if="${cookieUser.attendingEvents.contains(eventDetails.id)}">
 <a th:href="@{/unregisterEvent/{id} (id=${eventDetails.id})}">Cancel registration</a><br>
 </span>
-</div>
+</div></span>
 <ul>
 <span th:if="${cookieUser.canEditEvents}"><li><a th:href="@{/editEventAttendeeInfo/{id} (id=${eventDetails.id})}">Add information for attendees</a></li></span>
 <li><a href="/viewAll">Back to event list</a></li>
