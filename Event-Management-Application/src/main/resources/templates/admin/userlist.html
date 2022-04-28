@@ -23,10 +23,9 @@
 </ul>
 </div>
 <div class="content">
-<p th:text="${message}"/>
 <p th:text="${error}" style="color:red"/>
 <form>
-<table>
+<table class="user-list">
 <tr>
 <th>ID</th>
 <th>Username</th>
@@ -42,6 +41,7 @@
  <td th:text="${currentUser.isAdmin}" />
  <td><a th:href="@{/user-edit/{id}(id=${currentUser.id})}">Edit</a></td>
  <td><a th:href="@{/user-delete/{id}(id=${currentUser.id})}">Delete</a></td>
+ <td><a th:href="@{/admin-reset-password/{id}(id=${currentUser.id})}">Reset Password</a></td>
 </tr>
 </table>
 </form>
