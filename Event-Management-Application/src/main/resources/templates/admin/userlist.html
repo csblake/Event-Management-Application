@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>User List</title>
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <p th:text="${message}" class="message-banner"/>
+<div class="header">
+<h1>Event Center</h1>
+</div>
 <div class="user-info">
 <span th:if="${not cookieUser.username.equals('Guest')}"><p>Welcome, <a href="/userProfile"><span th:text="${cookieUser.username}" style="color:blue;">Guest</span></a></p></span>
 <span th:if="${cookieUser.username.equals('Guest')}"><p>Welcome, Guest</p></span>
@@ -23,10 +26,9 @@
 </ul>
 </div>
 <div class="content">
-<p th:text="${message}"/>
 <p th:text="${error}" style="color:red"/>
 <form>
-<table>
+<table class="user-list">
 <tr>
 <th>ID</th>
 <th>Username</th>
@@ -42,9 +44,13 @@
  <td th:text="${currentUser.isAdmin}" />
  <td><a th:href="@{/user-edit/{id}(id=${currentUser.id})}">Edit</a></td>
  <td><a th:href="@{/user-delete/{id}(id=${currentUser.id})}">Delete</a></td>
+ <td><a th:href="@{/admin-reset-password/{id}(id=${currentUser.id})}">Reset Password</a></td>
 </tr>
 </table>
 </form>
+</div>
+<div class="footer">
+<p>© 2022 Event Center</p>
 </div>
 </body>
 </html>

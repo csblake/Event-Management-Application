@@ -14,7 +14,12 @@ import java.sql.Time;
  */
 public class TimeEditor extends PropertyEditorSupport {
 	public void setAsText(String text) {
-		Time strTime = Time.valueOf(text + ":00"); // if it works, it works
+		Time strTime = new Time(0); // Initialize variable
+		if (text.length() == 8) { // If length is 8, it likely already has the seconds added
+			strTime = Time.valueOf(text);
+		} else {
+			strTime = Time.valueOf(text + ":00"); // if it works, it works
+		}
 		setValue(strTime);
 	}
 

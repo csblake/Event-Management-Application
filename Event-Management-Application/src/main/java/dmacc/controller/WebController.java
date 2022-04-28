@@ -7,6 +7,7 @@ package dmacc.controller;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,10 +103,42 @@ public class WebController {
 		userRepo.delete(u);
 		return adminViewUsers(model);
 	}
+	
+	@GetMapping("/user-reset-password/{id}")
+	public String editUserPasswordUser(@PathVariable("id") long id, Model model) {
+		User u = userRepo.findById(id).orElse(null);
+		model.addAttribute("userToEdit", u);
+		return "/reset-password";
+	}
+	
+	@GetMapping("/admin-reset-password/{id}")
+	public String editUserPasswordAdmin(@PathVariable("id") long id, Model model) {
+		User u = userRepo.findById(id).orElse(null);
+		model.addAttribute("userToEdit", u);
+		return "/admin/reset-password";
+	}
+	
+	@PostMapping("/admin-update-user-password/{id}")
+	public String updateUserPasswordAdmin(User u, Model model) {
+		User oldUser = userRepo.findById(u.getId()).orElse(null);
+		oldUser.setPassword(u.getPassword());
+		userRepo.save(oldUser);
+		model.addAttribute("message","Password for " + oldUser.getUsername() + " has been reset");
+		return adminViewUsers(model);
+	}
 
+	@PostMapping("/user-update-user-password/{id}")
+	public String updateUserPasswordUser(User u, Model model) {
+		User oldUser = userRepo.findById(u.getId()).orElse(null);
+		oldUser.setPassword(u.getPassword());
+		userRepo.save(oldUser);
+		model.addAttribute("message","Your password has been changed");
+		return showUserProfile(oldUser.getUsername(), model);
+	}
+	
 	@GetMapping({"/viewAll"})
 	public String viewAllEvents(Model model) {
-		model.addAttribute("events", eventRepo.findAll(Sort.by(Sort.Direction.ASC, "date")));
+		model.addAttribute("events", eventRepo.findEventByDateAfterOrderByDateAsc(Date.valueOf(LocalDate.now().minusDays(1))));
 		model.addAttribute("types", eventRepo.findTypes());
 		return "all-events";
 	}
@@ -121,6 +154,13 @@ public class WebController {
 		}
 
 		model.addAttribute("events", eventRepo.findEventByTypeOrderByDateAsc(type));
+		model.addAttribute("types", eventRepo.findTypes());
+		return "all-events";
+	}
+	
+	@GetMapping({"/viewAllPast"})
+	public String viewAllPastEvents(Model model) {
+		model.addAttribute("events", eventRepo.findAll(Sort.by(Sort.Direction.ASC, "date")));
 		model.addAttribute("types", eventRepo.findTypes());
 		return "all-events";
 	}
@@ -213,6 +253,11 @@ public class WebController {
 		}
 		model.addAttribute("eventsAttending", userEventsAttending);
 		return "user-profile";
+	}
+	
+	@GetMapping("/about")
+	public String about(Model model) {
+		return "/about";
 	}
 	
 	@InitBinder

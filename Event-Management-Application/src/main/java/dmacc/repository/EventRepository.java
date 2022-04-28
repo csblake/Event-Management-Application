@@ -1,5 +1,6 @@
 package dmacc.repository;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,8 @@ public interface EventRepository extends JpaRepository<Event, Long>{
 	List<Event> findEventByTypeOrderByDateAsc(String type);
 	
 	List<Event> findEventDistinctByTypeOrderByDateAsc(String type);
+	
+	List<Event> findEventByDateAfterOrderByDateAsc(Date current);
 	
 	// Gets unique event types from the database
 	@Query("SELECT DISTINCT e.type FROM Event e")

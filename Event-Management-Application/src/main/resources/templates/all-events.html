@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>All Events</title>
 	<link rel="stylesheet" href="/css/style.css">
 
@@ -21,6 +21,9 @@
 </head>
 <body>
 <p th:text="${message}" class="message-banner"/>
+<div class="header">
+<h1>Event Center</h1>
+</div>
 <div class="user-info">
 <span th:if="${not cookieUser.username.equals('Guest')}"><p>Welcome, <a href="/userProfile"><span th:text="${cookieUser.username}" style="color:blue;">Guest</span></a></p></span>
 <span th:if="${cookieUser.username.equals('Guest')}"><p>Welcome, Guest</p></span>
@@ -43,6 +46,7 @@
     <option th:each="currentType : ${types}" th:value="${currentType}" th:text="${currentType}">
     </option>
 </select>
+<a href="/viewAllPast">View past events</a>
 <br>
 <table>
 <tr th:each="currentEvent : ${events}" >
@@ -60,13 +64,16 @@
 Tickets start at: $<span th:text="${currentEvent.pricePerTicket}"></span>
 </div>
 
-	<td><a th:href="@{/edit/{id}(id=${currentEvent.id})}">Edit</a></td>
-	<td><a th:href="@{/delete/{id}(id=${currentEvent.id})}" onclick="return deleteConfirmation();">Delete</a></td>
-
-</td>
+	
+	<td><span th:if="${cookieUser.canAddEvents}"><a th:href="@{/edit/{id}(id=${currentEvent.id})}">Edit</a></span></td>
+	<td><span th:if="${cookieUser.canAddEvents}"><a th:href="@{/delete/{id}(id=${currentEvent.id})}" onclick="return deleteConfirmation();">Delete</a></span></td>
+	
 </tr>
 </table>
 <span th:if="${cookieUser.canAddEvents}"><a href="/inputEvent">Create an event</a></span><br />
+</div>
+<div class="footer">
+<p>© 2022 Event Center</p>
 </div>
 </body>
 </html>

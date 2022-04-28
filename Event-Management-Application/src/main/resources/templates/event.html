@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title th:text="${eventDetails.eventName}">Event Details</title>
 	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <p th:text="${message}" class="message-banner"/>
+<div class="header">
+<h1>Event Center</h1>
+</div>
 <div class="user-info">
 <span th:if="${not cookieUser.username.equals('Guest')}"><p>Welcome, <a href="/userProfile"><span th:text="${cookieUser.username}" style="color:blue;">Guest</span></a></p></span>
 <span th:if="${cookieUser.username.equals('Guest')}"><p>Welcome, Guest</p></span>
@@ -41,7 +44,7 @@ Doors open at: <span th:text="${#dates.format(eventDetails.doorsOpenTime, 'hh:mm
 <p th:text="${eventDetails.sponsors}"></p>
 </div>
 <h3>Cost to Sponsor</h3>
-	<p th:text="${eventDetails.costToSponsor}"></p>
+	<p th:text="'$' + ${eventDetails.costToSponsor}"></p>
 <span th:if="${not (eventDetails.attendeeInfo == null)}"><div class="attendee-info">
 <span th:if="${cookieUser.attendingEvents.contains(eventDetails.id)}">
 <h3>Information for attendees:</h3>
@@ -59,6 +62,9 @@ Doors open at: <span th:text="${#dates.format(eventDetails.doorsOpenTime, 'hh:mm
 <ul>
 <span th:if="${cookieUser.canEditEvents}"><li><a th:href="@{/editEventAttendeeInfo/{id} (id=${eventDetails.id})}">Add information for attendees</a></li></span>
 </ul>
+</div>
+<div class="footer">
+<p>© 2022 Event Center</p>
 </div>
 </body>
 </html>
