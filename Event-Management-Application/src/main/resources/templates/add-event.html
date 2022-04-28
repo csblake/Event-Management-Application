@@ -6,7 +6,23 @@
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
+<p th:text="${message}" class="message-banner"/>
+<div class="user-info">
+<span th:if="${not cookieUser.username.equals('Guest')}"><p>Welcome, <a href="/userProfile"><span th:text="${cookieUser.username}" style="color:blue;">Guest</span></a></p></span>
+<span th:if="${cookieUser.username.equals('Guest')}"><p>Welcome, Guest</p></span>
+	<span th:if="${cookieUser.username.equals('Guest')}"><a href="/login" class="user-button">Login</a> | <a href="/register" class="user-button">Register</a></span>
+	<span th:if="${not cookieUser.username.equals('Guest')}"><a href="/logout" class="user-button">Log out</a></span>
+</div>
+<br>
+<div class="menu">
+<ul>
+	<li><a href="/index">Home</a></li>
+	<li><a href="/about">About Us</a></li>
+	<li><a href="/viewAll">View Events</a></li>
+	<span th:if="${cookieUser.isAdmin}"><li><a href="/admin-home">Admin Access</a></li></span>
+</ul>
+</div>
+<div class="content">
 	<form th:object="${newEvent}" th:action="@{/update/{id}(id=${newEvent.id})}" method=POST>
 	NAME: <input name="name" size="20" th:field="*{eventName}"><br />
 	MAX ATTENDENCE: <input name="maxattendence" size="20" th:field="*{maxAttendence}"><br />
@@ -20,7 +36,6 @@
 	COST TO SPONSOR: <input name="costtosponsor" size="20" th:field="*{costToSponsor}"><br />
 	<input name="submit" type="submit" value="submit"/>
 	</form>
-	<a href="/viewAll">Back to events</a>
-
+</div>
 </body>
 </html>

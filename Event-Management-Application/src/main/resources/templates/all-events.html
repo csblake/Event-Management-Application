@@ -20,6 +20,23 @@
 
 </head>
 <body>
+<p th:text="${message}" class="message-banner"/>
+<div class="user-info">
+<span th:if="${not cookieUser.username.equals('Guest')}"><p>Welcome, <a href="/userProfile"><span th:text="${cookieUser.username}" style="color:blue;">Guest</span></a></p></span>
+<span th:if="${cookieUser.username.equals('Guest')}"><p>Welcome, Guest</p></span>
+	<span th:if="${cookieUser.username.equals('Guest')}"><a href="/login" class="user-button">Login</a> | <a href="/register" class="user-button">Register</a></span>
+	<span th:if="${not cookieUser.username.equals('Guest')}"><a href="/logout" class="user-button">Log out</a></span>
+</div>
+<br>
+<div class="menu">
+<ul>
+	<li><a href="/index">Home</a></li>
+	<li><a href="/about">About Us</a></li>
+	<li><a href="/viewAll">View Events</a></li>
+	<span th:if="${cookieUser.isAdmin}"><li><a href="/admin-home">Admin Access</a></li></span>
+</ul>
+</div>
+<div class="content">
 <select name="filter" id="filter" onchange="location = '/viewAll/' + this.value;">
 	<option disabled selected>Filter by Type</option>
 	<option>All Events</option>
@@ -50,6 +67,6 @@ Tickets start at: $<span th:text="${currentEvent.pricePerTicket}"></span>
 </tr>
 </table>
 <span th:if="${cookieUser.canAddEvents}"><a href="/inputEvent">Create an event</a></span><br />
-<a href="/index">Back to home</a>
+</div>
 </body>
 </html>
