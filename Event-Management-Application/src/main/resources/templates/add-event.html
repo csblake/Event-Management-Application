@@ -7,6 +7,9 @@
 </head>
 <body>
 <p th:text="${message}" class="message-banner"/>
+<div class="header">
+<h1>Event Center</h1>
+</div>
 <div class="user-info">
 <span th:if="${not cookieUser.username.equals('Guest')}"><p>Welcome, <a href="/userProfile"><span th:text="${cookieUser.username}" style="color:blue;">Guest</span></a></p></span>
 <span th:if="${cookieUser.username.equals('Guest')}"><p>Welcome, Guest</p></span>
@@ -36,6 +39,9 @@
 	COST TO SPONSOR: <input name="costtosponsor" size="20" th:field="*{costToSponsor}"><br />
 	<input name="submit" type="submit" value="submit"/>
 	</form>
+</div>
+<div class="footer">
+<p>© 2022 Event Center</p>
 </div>
 </body>
 </html>

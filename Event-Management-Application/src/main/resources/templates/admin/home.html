@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Admin Home</title>
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <p th:text="${message}" class="message-banner"/>
+<div class="header">
+<h1>Event Center</h1>
+</div>
 <div class="user-info">
 <span th:if="${not cookieUser.username.equals('Guest')}"><p>Welcome, <a href="/userProfile"><span th:text="${cookieUser.username}" style="color:blue;">Guest</span></a></p></span>
 <span th:if="${cookieUser.username.equals('Guest')}"><p>Welcome, Guest</p></span>
@@ -24,6 +27,9 @@
 </div>
 <div class="content">
 <a href="admin-viewUsers">View users</a><br>
+</div>
+<div class="footer">
+<p>© 2022 Event Center</p>
 </div>
 </body>
 </html>
