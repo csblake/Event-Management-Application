@@ -43,6 +43,7 @@
     <option th:each="currentType : ${types}" th:value="${currentType}" th:text="${currentType}">
     </option>
 </select>
+<a href="/viewAllPast">View past events</a>
 <br>
 <table>
 <tr th:each="currentEvent : ${events}" >
@@ -60,10 +61,10 @@
 Tickets start at: $<span th:text="${currentEvent.pricePerTicket}"></span>
 </div>
 
-	<td><a th:href="@{/edit/{id}(id=${currentEvent.id})}">Edit</a></td>
-	<td><a th:href="@{/delete/{id}(id=${currentEvent.id})}" onclick="return deleteConfirmation();">Delete</a></td>
-
-</td>
+	
+	<td><span th:if="${cookieUser.canAddEvents}"><a th:href="@{/edit/{id}(id=${currentEvent.id})}">Edit</a></span></td>
+	<td><span th:if="${cookieUser.canAddEvents}"><a th:href="@{/delete/{id}(id=${currentEvent.id})}" onclick="return deleteConfirmation();">Delete</a></span></td>
+	
 </tr>
 </table>
 <span th:if="${cookieUser.canAddEvents}"><a href="/inputEvent">Create an event</a></span><br />

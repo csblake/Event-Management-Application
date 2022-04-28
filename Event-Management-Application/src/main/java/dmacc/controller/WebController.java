@@ -7,6 +7,7 @@ package dmacc.controller;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,7 +138,7 @@ public class WebController {
 	
 	@GetMapping({"/viewAll"})
 	public String viewAllEvents(Model model) {
-		model.addAttribute("events", eventRepo.findAll(Sort.by(Sort.Direction.ASC, "date")));
+		model.addAttribute("events", eventRepo.findEventByDateAfterOrderByDateAsc(Date.valueOf(LocalDate.now().minusDays(1))));
 		model.addAttribute("types", eventRepo.findTypes());
 		return "all-events";
 	}
@@ -153,6 +154,13 @@ public class WebController {
 		}
 
 		model.addAttribute("events", eventRepo.findEventByTypeOrderByDateAsc(type));
+		model.addAttribute("types", eventRepo.findTypes());
+		return "all-events";
+	}
+	
+	@GetMapping({"/viewAllPast"})
+	public String viewAllPastEvents(Model model) {
+		model.addAttribute("events", eventRepo.findAll(Sort.by(Sort.Direction.ASC, "date")));
 		model.addAttribute("types", eventRepo.findTypes());
 		return "all-events";
 	}
