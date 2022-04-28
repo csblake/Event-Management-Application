@@ -41,7 +41,7 @@
 		background-color: #04AA6D;
 	}
 	
-	div {
+	.menu {
 		border-bottom: 5px solid black;
 	}
 	
@@ -76,6 +76,10 @@
 		color: black;
 	}
 	
+	.header {
+		text-align: center;
+	}
+	
 	.footer {
 		text-align: center;
 	}
@@ -86,4 +90,8 @@
 		padding: 15px;
 	}
 
-	
+	.user-list, .user-list th, .user-list td {
+  		border: 1px solid;
+  		border-collapse: collapse;
+  		padding: 5px;
+	}
