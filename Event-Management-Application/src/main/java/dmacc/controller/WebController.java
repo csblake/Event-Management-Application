@@ -255,6 +255,11 @@ public class WebController {
 		return "user-profile";
 	}
 	
+	@GetMapping("/about")
+	public String about(Model model) {
+		return "/about";
+	}
+	
 	@InitBinder
 	protected void dateBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
 		binder.registerCustomEditor(Date.class, new DateEditor());
