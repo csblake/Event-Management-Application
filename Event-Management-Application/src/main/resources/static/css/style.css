@@ -3,6 +3,8 @@
 
 	body {
 		background-color: lightblue;
+		max-width: 80%;
+		margin: auto;
 	}
 
 	.form-center {
@@ -40,7 +42,6 @@
 	}
 	
 	div {
-		padding-top: 20px;
 		border-bottom: 5px solid black;
 	}
 	
@@ -55,3 +56,34 @@
 		border: 2px #bbbbbb;
 		text-align: center;
 	}
+	
+	.user-info {
+		border: solid black 1px;
+		display: flex;
+    	flex-direction: column;
+    	width: fit-content;
+    	padding: 0px 10px 15px 10px;
+    	background-color: #eeeeee;
+	}
+	
+	
+	.user-button {
+		border: solid black 2px;
+		padding: 10px;
+		border-radius: 25px;
+		background-image: linear-gradient(#dddddd, #aaaaaa);
+		text-decoration: none;
+		color: black;
+	}
+	
+	.footer {
+		text-align: center;
+	}
+	
+	.content {
+		border: solid black 2px;
+		background-color: white;
+		padding: 15px;
+	}
+
+	

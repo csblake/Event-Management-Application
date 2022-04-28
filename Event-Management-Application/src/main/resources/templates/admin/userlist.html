@@ -6,6 +6,23 @@
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<p th:text="${message}" class="message-banner"/>
+<div class="user-info">
+<span th:if="${not cookieUser.username.equals('Guest')}"><p>Welcome, <a href="/userProfile"><span th:text="${cookieUser.username}" style="color:blue;">Guest</span></a></p></span>
+<span th:if="${cookieUser.username.equals('Guest')}"><p>Welcome, Guest</p></span>
+	<span th:if="${cookieUser.username.equals('Guest')}"><a href="/login" class="user-button">Login</a> | <a href="/register" class="user-button">Register</a></span>
+	<span th:if="${not cookieUser.username.equals('Guest')}"><a href="/logout" class="user-button">Log out</a></span>
+</div>
+<br>
+<div class="menu">
+<ul>
+	<li><a href="/index">Home</a></li>
+	<li><a href="/about">About Us</a></li>
+	<li><a href="/viewAll">View Events</a></li>
+	<span th:if="${cookieUser.isAdmin}"><li><a href="/admin-home">Admin Access</a></li></span>
+</ul>
+</div>
+<div class="content">
 <p th:text="${message}"/>
 <p th:text="${error}" style="color:red"/>
 <form>
@@ -28,6 +45,6 @@
 </tr>
 </table>
 </form>
-<a href="/admin-home">Back to admin home</a>
+</div>
 </body>
 </html>
