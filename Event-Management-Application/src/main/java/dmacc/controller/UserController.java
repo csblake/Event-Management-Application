@@ -61,6 +61,19 @@ public class UserController {
 			model.addAttribute("error", "Password cannot be empty.");
 			return "register";
 		}
+		boolean hasSpecial = false;
+
+		for(int counter = 0; counter < u.getPassword().length(); counter++) {
+			if(!Character.isDigit(u.getPassword().charAt(counter))
+                && !Character.isLetter(u.getPassword().charAt(counter))
+                && !Character.isWhitespace(u.getPassword().charAt(counter))) {
+				hasSpecial = true;
+			}
+		}
+		if(!hasSpecial) {
+			model.addAttribute("error", "Password must have at least one special character.");
+			return "register";
+		}
 		if (userRepo.findAll().isEmpty()) { // If no user accounts exist, the first one will be made an admin
 			u.setAdmin(true);
 			u.setCanAddEvents(true);
